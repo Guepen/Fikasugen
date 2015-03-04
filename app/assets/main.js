@@ -7,8 +7,7 @@ require.config({
 });
 
 require([
-        'app/app',
-        'app/services/routeResolver'
+        'app'
     ],
     function(){
         angular.bootstrap(document, ['fikasugen'])

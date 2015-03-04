@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Fikasugen</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/app.css">
+    <!--<base href="fikasugen">-->
+</head>
+
+<body>
+<div class="container container-fluid">
+    <h3>5trew</h3>
+    <div class="row">
+        <header data-ng-include="'components/navbar/navbarView.html'"></header>
+    </div>
+
+    <div class="row">
+        <div data-ng-view></div>
+    </div>
+</div>
+<!-- In production use:
+<script src="//ajax.googleapis.com/ajax/libs/angularjs/x.x.x/angular.min.js"></script>
+-->
+
+<script src="bower_components/requirejs/require.js" type="text/javascript"></script>
+
+
+<script src="assets/main.js"></script>
+
+<script src="bower_components/angular/angular.js" type="text/javascript"></script>
+<script src="bower_components/angular-route/angular-route.js" type="text/javascript"></script>
+</body>
+</html>
