@@ -1,0 +1,29 @@
+<div class="row">
+
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h5>{{vm.coffeehouse.name}}</h5>
+        </div>
+        <div class="panel-body">
+            <div class="col-md-2">
+                <h4>Adress</h4>
+                <p>{{vm.coffeehouse.zipcode}} <span>{{vm.coffeehouse.city}}</span>
+                <p>{{vm.coffeehouse.street}}</p>
+            </div>
+            <div class="col-md-2">
+                <h4>Taggar</h4>
+                <p data-ng-repeat="tag in vm.coffeehouse.tags">{{tag.name}}</p>
+            </div>
+            <div class="col-md-8">
+                <map data-center="{{vm.coffeehouse.latitude}}, {{vm.coffeehouse.longitude}}" data-zoom="16" class="map">
+                    <marker
+                            position="[{{vm.coffeehouse.latitude}}, {{vm.coffeehouse.longitude}}]"
+                            animation="Animation.BOUNCE"
+                            visible="true">
+
+                    </marker>
+                </map>
+            </div>
+        </div>
+    </div>
+</div>

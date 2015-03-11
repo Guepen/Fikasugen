@@ -21,3 +21,11 @@ body {
     background-color: #2e2e2e !important;
     color: #ffffff !important;
 }
+
+.map{
+    height: 100%;
+}
+
+.panel-body {
+    color: #000000;
+}

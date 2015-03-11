@@ -7,10 +7,13 @@ define([], function() {
     var loginModule = angular.module('login');
     loginModule.register.factory('sessionFactory', ['$window', function ($window) {
         return {
-            saveSession: function(key, value){
-                $window.sessionStorage.setItem(key, value);
+            saveItem: function(key, value){
+                $window.sessionStorage.setItem(key, JSON.stringify(value));
             },
-            deleteSession: function(key){
+            getItem: function(key){
+              return JSON.parse($window.sessionStorage.getItem(key));
+            },
+            deleteItem: function(key){
                 $window.sessionStorage.removeItem(key);
             }
         };

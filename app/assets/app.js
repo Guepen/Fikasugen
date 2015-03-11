@@ -4,7 +4,8 @@ define([], function () {
 
     var app = angular.module('fikasugen', [
         'ngRoute',
-        'login'
+        'login',
+        'ngMap'
     ]);
 
     app.config(['$routeProvider', '$controllerProvider','$httpProvider',
@@ -29,15 +30,27 @@ define([], function () {
             $routeProvider
 
                 .when('/', {
-                    templateUrl: 'components/coffeehouses/coffeehouseView.html',
-                    controller: 'coffeehouseController',
+                    templateUrl: 'components/coffeehouses/coffeehouseList.html',
                     resolve: {coffeehouseController: function($q){
                         var deferred = $q.defer();
-                        require(['components/coffeehouses/coffeehouseController'],function(){
+                        require(['components/coffeehouses/coffeehouseListCtrl'],function(){
+                            deferred.resolve();
+                        });
+                        return deferred.promise;
+                    }},
+                    controller: 'coffeehouseListController',
+                    controllerAs: 'coffeehouseList'
+                })
+                .when('/coffeehouse/:id',{
+                    templateUrl: '../components/coffeehouses/coffeehouseView.html',
+                    resolve: {coffeehouseController: function($q){
+                        var deferred = $q.defer();
+                        require(['../components/coffeehouses/coffeehouseDirective'],function(){
                             deferred.resolve();
                         });
                         return deferred.promise;
                     }}
+
                 })
                 .when('/login',{
                     templateUrl: 'components/authentication/authenticationView.html',

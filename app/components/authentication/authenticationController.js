@@ -2,7 +2,7 @@
  * Created by Tobias on 2015-03-04.
  */
 'use strict';
-define(['components/authentication/authenticationService', 'components/authentication/sessionFactory'], function () {
+define(['authenticationService'], function () {
     var loginModule = angular.module('login')
         .register.controller('authenticationController', ['$window','sessionFactory','authService',
             function ($window, sessionFactory, authService) {
@@ -15,7 +15,7 @@ define(['components/authentication/authenticationService', 'components/authentic
                     authService.getLoginToken(vm.username, vm.password)
                         .success(function(response){
                             console.log(response);
-                            sessionFactory.saveSession('token', response.auth_token)
+                            sessionFactory.saveItem('token', response.auth_token)
                         })
                         .error(function(){
                             vm.loginError = true;
