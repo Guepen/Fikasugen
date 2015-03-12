@@ -13,8 +13,7 @@ define([], function () {
 
         function ($routeProvider, $controllerProvider,$httpProvider,
                   $compileProvider, $filterProvider, $provide, $locationProvider) {
-            $httpProvider.defaults.useXDomain = true;
-            delete $httpProvider.defaults.headers.common['X-Requested-With'];
+            $httpProvider.defaults.headers.post = {'Content-type': 'application/json'};
 
             //used for register resources dynamically
             app.register =
@@ -30,10 +29,11 @@ define([], function () {
             $routeProvider
 
                 .when('/', {
-                    templateUrl: 'components/coffeehouses/coffeehouseList.html',
+                    templateUrl: 'components/coffeehouses/views/coffeehouseList.html',
                     resolve: {coffeehouseController: function($q){
                         var deferred = $q.defer();
-                        require(['components/coffeehouses/coffeehouseListCtrl'],function(){
+                        require(['components/coffeehouses/controllers/coffeehouseListCtrl',
+                            'components/navbar/navbarController'],function(){
                             deferred.resolve();
                         });
                         return deferred.promise;
@@ -42,15 +42,26 @@ define([], function () {
                     controllerAs: 'coffeehouseList'
                 })
                 .when('/coffeehouse/:id',{
-                    templateUrl: '../components/coffeehouses/coffeehouseView.html',
+                    templateUrl: 'components/coffeehouses/views/coffeehouseView.html',
                     resolve: {coffeehouseController: function($q){
                         var deferred = $q.defer();
-                        require(['../components/coffeehouses/coffeehouseDirective'],function(){
+                        require(['components/coffeehouses/Directives/coffeehouseDirective'],function(){
                             deferred.resolve();
                         });
                         return deferred.promise;
                     }}
 
+                })
+
+                .when('/newCoffeehouse',{
+                    templateUrl: 'components/coffeehouses/views/newCoffeehouse.html',
+                    resolve: {coffeehouseController: function($q){
+                        var deferred = $q.defer();
+                        require(['components/coffeehouses/Directives/newCoffeehouseDirective'],function(){
+                            deferred.resolve();
+                        });
+                        return deferred.promise;
+                    }}
                 })
                 .when('/login',{
                     templateUrl: 'components/authentication/authenticationView.html',
@@ -67,9 +78,18 @@ define([], function () {
                 //.when('/login', route.resolve('authentication', 'authentication/', 'vm'))
                 .otherwise({ redirectTo: '/' });
 
-            $locationProvider.html5Mode({requireBase:false, enabled: true});
+            $locationProvider.html5Mode({requireBase:true, enabled: true});
 
         }]);
+
+    app.constant('API',{
+       'key': 'fe593bd24fc5741ced3ae48b504a5c36a09af3d9e67dd24cc6'
+    });
+
+    app.constant('storage',{
+        'nearbyCoffeehouses': 'nearbyCoffeehouses',
+        'token': 'token'
+    });
 
 
     return app;

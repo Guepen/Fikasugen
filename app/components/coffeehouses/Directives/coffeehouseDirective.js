@@ -4,6 +4,7 @@
 'use strict';
 define(['app', 'components/session/sessionFactory'], function (app) {
 
+    //registrera direktivet på modulen fikasugen
     app.register.directive('coffeehouse', function(){
         var coffeehouseController = function($routeParams, sessionFactory){
             var vm = this;
@@ -20,7 +21,7 @@ define(['app', 'components/session/sessionFactory'], function (app) {
         coffeehouseController.$inject = ['$routeParams', 'sessionFactory'];
         return{
             restrict: 'E',
-            templateUrl: '../components/coffeehouses/coffeehouse.html',
+            templateUrl: 'components/coffeehouses/Directives/coffeehouse.html',
             controller: coffeehouseController,
             controllerAs: 'vm'
         }

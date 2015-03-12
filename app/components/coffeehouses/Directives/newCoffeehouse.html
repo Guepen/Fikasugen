@@ -1,0 +1,62 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="page-header">
+            <h3>Nytt Café</h3>
+        </div>
+    </div>
+</div>
+<div data-ng-show="vm.loggedIn">
+    <div>
+        <form name="loginForm" data-ng-submit="vm.addCoffeehouse()">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label for="username">Namn</label>
+                        <input type="text" data-ng-model="vm.coffeehouse.name" class="form-control" placeholder="Ange namnet på caféet" required>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label for="username">Taggar</label>
+                        <input type="text" data-ng-model="vm.tags" class="form-control" id="username" placeholder="Separera taggar med , ex. Smakrikt kaffe, goda hallongrottor" required>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group">
+                    <div class="col-md-6">
+                        <label for="inputPassword">Stad</label>
+                        <input type="text" data-ng-model="vm.coffeehouse.city" class="form-control" id="inputPassword" placeholder="ex. Kalmar" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="inputPassword">Postnummer</label>
+                        <input type="text" data-ng-model="vm.coffeehouse.zipcode" class="form-control" id="inputPassword" placeholder="ex. 392 33" required>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label for="username">Adress</label>
+                        <input type="text" data-ng-model="vm.coffeehouse.street" class="form-control" id="username" placeholder="ex. nyavägen 1" required>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                <input type="submit" class="btn btn-primary" placeholder="Logga In" >
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+<div class="alert alert-danger" data-ng-hide="vm.loggedIn">
+    <h3>Du behöver <a href="/login">logga in</a> för att kunna lägga till ett café</h3>
+</div>

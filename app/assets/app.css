@@ -29,3 +29,8 @@ body {
 .panel-body {
     color: #000000;
 }
+
+option, select{
+    color: #ffffff;
+    font-weight: 200;
+}
