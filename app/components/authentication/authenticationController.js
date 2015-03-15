@@ -16,7 +16,9 @@ define(['authenticationService'], function () {
                         .success(function(response){
                             console.log(response);
                             sessionFactory.saveItem(storage.token, response.auth_token);
+                            sessionFactory.saveItem(storage.username, vm.username);
                             $rootScope.loggedIn = response.auth_token;
+                            $rootScope.justLoggedIn = true;
                             $location.path('/');
                         })
                         .error(function(){

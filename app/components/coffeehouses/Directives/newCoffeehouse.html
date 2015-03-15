@@ -5,7 +5,7 @@
         </div>
     </div>
 </div>
-<div data-ng-show="vm.loggedIn">
+<div data-ng-if="$root.loggedIn">
     <div>
         <form name="loginForm" data-ng-submit="vm.addCoffeehouse()">
             <div class="row">
@@ -57,6 +57,6 @@
 </div>
 
 
-<div class="alert alert-danger" data-ng-hide="vm.loggedIn">
+<div class="alert alert-danger" data-ng-if="!$root.loggedIn">
     <h3>Du behöver <a href="/login">logga in</a> för att kunna lägga till ett café</h3>
 </div>

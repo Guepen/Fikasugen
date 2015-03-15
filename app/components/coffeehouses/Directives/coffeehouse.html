@@ -5,7 +5,7 @@
             <h5>{{vm.coffeehouse.name}}</h5>
         </div>
         <div class="panel-body">
-            <div class="col-md-4">
+            <div class="col-md-3">
                 <div class="row">
 
                     <h4>Adress</h4>
@@ -15,9 +15,9 @@
                 </div>
                 <div class="row">
                     <div class="row">
-                        <div class="col-md-4">
+                        <div class="col-md-2">
                             <h4>Taggar</h4>
-                            <p data-ng-repeat="tag in vm.coffeehouse.tags">{{tag.name}}</p>
+                            <a href="/tags/{{tag.id}}/coffeehouses" data-ng-click="vm.getCoffeehousesByTag(tag)" data-ng-repeat="tag in vm.coffeehouse.tags">{{tag.name}}</a>
                         </div>
                     </div>
                     <div class="row">
@@ -32,8 +32,10 @@
                     </div>
                 </div>
             </div>
-
-            <div class="col-md-8">
+            <div class="col-md-3">
+                <img class="img-rounded img-responsive" src="{{vm.imageUrl}}">
+            </div>
+            <div class="col-md-6">
                 <map data-center="{{vm.coffeehouse.latitude}}, {{vm.coffeehouse.longitude}}" data-zoom="16" class="map">
                     <marker
                             position="[{{vm.coffeehouse.latitude}}, {{vm.coffeehouse.longitude}}]"
@@ -44,8 +46,8 @@
                 </map>
             </div>
         </div>
-        <div class="panel-footer">
-
+        <div data-ng-if="vm.creator" class="panel-footer">
+            <a class="btn btn-danger" data-ng-click="vm.deleteCoffeehouse()">Ta bort caféet</a>
         </div>
     </div>
 </div>

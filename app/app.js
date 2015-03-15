@@ -32,14 +32,12 @@ define([], function () {
                     templateUrl: 'components/coffeehouses/views/coffeehouseList.html',
                     resolve: {coffeehouseController: function($q){
                         var deferred = $q.defer();
-                        require(['components/coffeehouses/controllers/coffeehouseListCtrl',
+                        require(['components/coffeehouses/Directives/coffeehouseList',
                             'components/navbar/navbarController'],function(){
                             deferred.resolve();
                         });
                         return deferred.promise;
-                    }},
-                    controller: 'coffeehouseListController',
-                    controllerAs: 'coffeehouseList'
+                    }}
                 })
                 .when('/coffeehouse/:id',{
                     templateUrl: 'components/coffeehouses/views/coffeehouseView.html',
@@ -51,6 +49,17 @@ define([], function () {
                         return deferred.promise;
                     }}
 
+                })
+
+                .when('/tags/:tagId/coffeehouses', {
+                    templateUrl: 'components/coffeehouses/views/tag-coffeehouses.html',
+                    resolve: {coffeehouseController: function($q){
+                        var deferred = $q.defer();
+                        require(['components/coffeehouses/Directives/coffeehousesByTag'],function(){
+                            deferred.resolve();
+                        });
+                        return deferred.promise;
+                    }}
                 })
 
                 .when('/newCoffeehouse',{
@@ -75,6 +84,7 @@ define([], function () {
                     controller: 'authenticationController',
                     controllerAs: 'authenticate'
                 })
+
                 //.when('/login', route.resolve('authentication', 'authentication/', 'vm'))
                 .otherwise({ redirectTo: '/' });
 
@@ -82,13 +92,15 @@ define([], function () {
 
         }]);
 
+
     app.constant('API',{
-       'key': 'fe593bd24fc5741ced3ae48b504a5c36a09af3d9e67dd24cc6'
+        'key': 'fe593bd24fc5741ced3ae48b504a5c36a09af3d9e67dd24cc6'
     });
 
     app.constant('storage',{
         'nearbyCoffeehouses': 'nearbyCoffeehouses',
-        'token': 'token'
+        'token': 'token',
+        'username': 'username'
     });
 
 

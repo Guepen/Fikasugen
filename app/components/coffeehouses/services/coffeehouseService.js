@@ -16,7 +16,11 @@ define(['app'], function (app) {
                 return $http.get('http://127.0.0.1:3000/api/v1/coffeehouses?search='+query);
             },
 
-            AddCoffeehouse: function(coffeehouse){
+            getCoffeehousesByTag: function(tagId){
+              return $http.get('http://127.0.0.1:3000/api/v1/tags/' + tagId + '/coffeehouses')
+            },
+
+            addCoffeehouse: function(coffeehouse){
                 return $http.post('http://127.0.0.1:3000/api/v1/coffeehouses', coffeehouse)
             }
         }

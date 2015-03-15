@@ -1,20 +1,16 @@
-
-<div data-ng-if="coffeehouseList.positionError">
+<div data-ng-if="vm.positionError">
     <div class="alert alert-danger">
         <h4>{{coffeehouseList.errorMsg}}</h4>
     </div>
 </div>
+<div data-ng-if="$root.justLoggedIn">
+    <div class="alert alert-success">
+        <h4>Du är nu inloggad!</h4>
+    </div>
+</div>
 <div class="row page-header">
     <div class="col-md-6">
-        <h3>Närliggande Caféer</h3>
-        <h4>Filtrera ut caféer efter en tagg</h4>
-        <select class="btn btn-primary" data-ng-model="tagFilter">
-            <option></option>
-            <option data-ng-repeat="tag in coffeehouseList.tags" value="{{tag.name}}">{{tag.name}}</option>
-        </select>
-    </div>
-    <div class="col-md-6">
-        <form class="navbar-form pull-right" role="search">
+        <form class="navbar-form" role="search">
             <div class="input-group">
                 <input required="" type="text" data-ng-model="query" class="form-control" placeholder="Sök efter ett café" name="srch-term" id="srch-term">
                 <div class="input-group-btn">
@@ -24,21 +20,5 @@
         </form>
     </div>
 </div>
-<div class="row">
-    <div data-ng-repeat="c in coffeehouseList.coffeehouses |filter:tagFilter | filter:query" class="col-md-3" >
-        <div class="panel panel-primary">
-            <div class="panel-heading">
-                <h5>{{c.name}}</h5>
-            </div>
-            <div class="panel-body">
-                <h4>Adress</h4>
-                <p>{{c.zipcode}} <span>{{c.city}}</span>
-                <p>{{c.street}}</p>
-            </div>
-            <div class="panel-footer">
-                <a href="coffeehouse/{{c.id}}" class="btn btn-xs btn-success">Visa mer information</a>
-            </div>
-        </div>
-    </div>
-</div>
-</div>
+
+<coffeehouse-list></coffeehouse-list>
