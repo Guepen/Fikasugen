@@ -2,14 +2,14 @@
  * Created by Tobias on 2015-03-11.
  */
 'use strict';
-define(['app', 'components/session/sessionFactory'], function (app) {
+define(['app', 'components/coffeehouses/services/coffeehouseService', 'components/session/sessionFactory'], function (app) {
 
     //registrera direktivet på modulen fikasugen
     app.register.directive('coffeehouse', function(){
-        var coffeehouseController = function($routeParams, sessionFactory, storage){
+        var coffeehouseController = function($routeParams, $location, $scope, sessionFactory, storage, coffeehouseService){
             var vm = this;
             console.log($routeParams.id);
-            var coffeehouses = sessionFactory.getItem('nearbyCoffeehouses');
+            var coffeehouses = sessionFactory.getItem(storage.nearbyCoffeehouses);
             coffeehouses.forEach(function(coffeehouse){
                 if(coffeehouse.id == $routeParams.id){
                     vm.coffeehouse = coffeehouse;
@@ -18,10 +18,42 @@ define(['app', 'components/session/sessionFactory'], function (app) {
                 }
             });
 
+            vm.deleteCoffeehouse = function(){
+                coffeehouseService.removeCoffeehouse($routeParams.id).success(function(){
+                    var coffeehouseList = sessionFactory.getItem(storage.nearbyCoffeehouses);
+
+                    for(var i = 0; i < coffeehouseList.length; i++){
+                        console.log(coffeehouseList[i].id, $routeParams.id);
+                        if(coffeehouseList[i].id == $routeParams.id){
+                            coffeehouseList.splice(i, 1);
+                        }
+                    }
+                    sessionFactory.saveItem(storage.nearbyCoffeehouses, coffeehouseList);
+                    $location.path('/');
+                })
+            };
+
+            vm.addTags = function(){
+                var newTag = {'name': vm.newTag};
+                coffeehouseService.addTagsToCoffeehouse($routeParams.id, newTag).success(function(response){
+                    vm.coffeehouse.tags.push(response);
+                    var coffeehouseList = sessionFactory.getItem(storage.nearbyCoffeehouses);
+                    coffeehouseList.forEach(function(coffeehouse){
+                        if(coffeehouse.id == $routeParams.id){
+                            coffeehouse.tags.push(response);
+                        }
+                    });
+
+                    sessionFactory.saveItem(storage.nearbyCoffeehouses, coffeehouseList);
+                    console.log(vm.coffeehouse.tags);
+                    vm.newTag = null;
+                })
+            };
+
             vm.imageUrl = 'assets/images/1.jpg';
         };
 
-        coffeehouseController.$inject = ['$routeParams', 'sessionFactory', 'storage'];
+        coffeehouseController.$inject = ['$routeParams', '$location', '$scope', 'sessionFactory', 'storage', 'coffeehouseService'];
         return{
             restrict: 'E',
             templateUrl: 'components/coffeehouses/Directives/coffeehouse.html',

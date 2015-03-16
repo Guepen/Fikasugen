@@ -22,7 +22,8 @@ define([], function () {
                 directive: $compileProvider.directive,
                 filter: $filterProvider.register,
                 factory: $provide.factory,
-                service: $provide.service
+                service: $provide.service,
+                value: $provide.value
             };
 
             //Define routes - controllers will be loaded dynamically
@@ -72,6 +73,16 @@ define([], function () {
                         return deferred.promise;
                     }}
                 })
+                .when('/coffeehouse/:id/update', {
+                    templateUrl: 'components/coffeehouses/views/updateCoffeehouse.html',
+                    resolve: {coffeehouseController: function($q){
+                        var deferred = $q.defer();
+                        require(['components/coffeehouses/Directives/updateCoffeehouse'],function(){
+                            deferred.resolve();
+                        });
+                        return deferred.promise;
+                    }}
+                })
                 .when('/login',{
                     templateUrl: 'components/authentication/authenticationView.html',
                     resolve: {coffeehouseController: function($q){
@@ -102,7 +113,6 @@ define([], function () {
         'token': 'token',
         'username': 'username'
     });
-
 
     return app;
 
