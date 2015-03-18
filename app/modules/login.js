@@ -1,14 +1,12 @@
 /**
  * Created by Tobias on 2015-03-04.
  */
-var login = angular.module('login', [ 'ngResource']);
+var authentication = angular.module('authentication', []);
 
-login.config(['$controllerProvider', '$httpProvider',
-    '$compileProvider', '$filterProvider', '$provide','$resourceProvider',
-    function ( $controllerProvider,$httpProvider, $compileProvider, $filterProvider, $provide, $resourceProvider) {
-        $httpProvider.defaults.useXDomain = true;
-        $resourceProvider.defaults.stripTrailingSlashes = false;
-        login.register =
+authentication.config(['$controllerProvider', '$httpProvider',
+    '$compileProvider', '$filterProvider', '$provide',
+    function ( $controllerProvider,$httpProvider, $compileProvider, $filterProvider, $provide) {
+        authentication.register =
         {
             controller: $controllerProvider.register,
             directive: $compileProvider.directive,

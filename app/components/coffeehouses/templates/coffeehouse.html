@@ -1,0 +1,54 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h5>{{vm.coffeehouse.name}}</h5>
+            </div>
+            <div class="panel-body">
+                <div class="col-md-3">
+                    <div class="row">
+                        <h4>Adress</h4>
+                        <p>{{vm.coffeehouse.zipcode}} <span>{{vm.coffeehouse.city}}</span>
+                        <p>{{vm.coffeehouse.street}}</p>
+
+                    </div>
+                    <div class="row">
+                        <div class="row">
+                            <div class="col-md-2">
+                                <h4>Taggar</h4>
+                                <a class="tag" href="/tags/{{tag.id}}/coffeehouses" data-ng-click="vm.getCoffeehousesByTag(tag)" data-ng-repeat="tag in vm.coffeehouse.tags">{{tag.name}}</a>
+                            </div>
+                        </div>
+                        <div data-ng-if="$root.loggedIn" class="row">
+                            <form data-ng-submit="vm.addTags()" class="navbar-form" role="search">
+                                <div class="input-group-btn">
+                                    <input type="text" class="form-control" data-ng-model="vm.newTag" placeholder="Lägg till en tagg" name="srch-term" id="srch-term">
+                                    <div class="input-group">
+                                        <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-plus"></i></button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <img class="img-rounded img-responsive" src="assets/images/{{vm.coffeehouse.imageUrl}}.jpg">
+                </div>
+                <div class="col-md-6">
+                    <map data-center="{{vm.coffeehouse.latitude}}, {{vm.coffeehouse.longitude}}" data-zoom="16" class="map">
+                        <marker
+                                position="[{{vm.coffeehouse.latitude}}, {{vm.coffeehouse.longitude}}]"
+                                animation="Animation.BOUNCE"
+                                visible="true">
+
+                        </marker>
+                    </map>
+                </div>
+            </div>
+            <div data-ng-if="vm.creator" class="panel-footer">
+                <a class="btn btn-danger" data-ng-click="vm.deleteCoffeehouse()">Ta bort caféet</a>
+                <a class="btn btn-warning" href="/coffeehouse/{{vm.coffeehouse.id}}/update">Ändra caféets information</a>
+            </div>
+        </div>
+    </div>
+</div>

@@ -38,21 +38,23 @@ define([
                 vm.coffeehouse.tags_attributes = [];
                 delete vm.coffeehouse.tags;
                 console.log(vm.coffeehouse);
-                var tags = vm.tags.split(',');
-                tags.forEach(function(tag){
-                    vm.coffeehouse.tags_attributes.push({name: tag.trim()})
-                });
+                if (vm.tags !== "") {
+                    var tags = vm.tags.split(',');
+                    tags.forEach(function (tag) {
+                        vm.coffeehouse.tags_attributes.push({name: tag.trim()})
+                    });
+                }
                 console.log(vm.coffeehouse, vm.tags);
                 coffeehouseService.updateCoffeehouse(vm.coffeehouse).success(function(data){
                     console.log(data);
-                    if(user.lat !== undefined || user.long !== undefined) {
-                        coffeehouseService.getNearbyCoffeehouses(user.lat, user.long).success(function(data){
-                            console.log(data.length);
-                            sessionFactory.saveItem(storage.nearbyCoffeehouses, data);
-                            $location.path("/coffeehouse/"+ $routeParams.id);
-                        })
+                    coffeehouseList.forEach(function(coffeehouse){
+                        if(coffeehouse.id == $routeParams.id){
+                            coffeehouse = data;
+                            sessionFactory.saveItem(storage.nearbyCoffeehouses, coffeehouseList);
+                        }
+                    });
 
-                    }
+                    $location.path("/coffeehouse/"+ $routeParams.id);
 
                 })
             }
@@ -61,7 +63,7 @@ define([
         coffeehouseController.$inject = ['$rootScope', '$routeParams', '$location', 'user', 'creator', 'sessionFactory', 'coffeehouseService', 'storage' ];
         return{
             restrict: 'E',
-            templateUrl: 'components/coffeehouses/Directives/newCoffeehouse.html',
+            templateUrl: '../templates/newCoffeehouse.html',
             controller: coffeehouseController,
             controllerAs: 'vm'
         }

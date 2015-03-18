@@ -16,6 +16,8 @@ define(['app', 'components/coffeehouses/services/coffeehouseService', 'component
                     vm.creator = (coffeehouse.creator.username == sessionFactory.getItem(storage.username));
                     console.log(vm.creator);
                 }
+
+
             });
 
             vm.deleteCoffeehouse = function(){
@@ -50,13 +52,12 @@ define(['app', 'components/coffeehouses/services/coffeehouseService', 'component
                 })
             };
 
-            vm.imageUrl = 'assets/images/1.jpg';
         };
 
         coffeehouseController.$inject = ['$routeParams', '$location', '$scope', 'sessionFactory', 'storage', 'coffeehouseService'];
         return{
             restrict: 'E',
-            templateUrl: 'components/coffeehouses/Directives/coffeehouse.html',
+            templateUrl: '../templates/coffeehouse.html',
             controller: coffeehouseController,
             controllerAs: 'vm'
         }

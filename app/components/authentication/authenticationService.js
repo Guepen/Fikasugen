@@ -3,22 +3,19 @@
  */
 "use strict";
 define([], function() {
-    var loginModule = angular.module('login');
-    loginModule.register.factory('authService', ['$http', function ($http) {
+    var loginModule = angular.module('authentication');
+    loginModule.register.factory('authService', ['$http', 'API', function ($http, API) {
         return {
             getLoginToken: function (username, password) {
                 return $http.get('http://localhost:3000/api/v1/authenticate', {
                             headers: {
-                                'Authorization': 'Token token=fe593bd24fc5741ced3ae48b504a5c36a09af3d9e67dd24cc6',
+                                'Authorization': API.key,
                                 'username': username,
                                 'password': password
                             }
-                        
                     });
-
             }
         }
-
 
     }]);
 });

@@ -4,7 +4,7 @@ define([], function () {
 
     var app = angular.module('fikasugen', [
         'ngRoute',
-        'login',
+        'authentication',
         'ngMap'
     ]);
 
@@ -87,7 +87,7 @@ define([], function () {
                     templateUrl: 'components/authentication/authenticationView.html',
                     resolve: {coffeehouseController: function($q){
                         var deferred = $q.defer();
-                        require(['components/authentication/authenticationController'],function(){
+                        require(['components/authentication/directives/logout','components/authentication/authenticationController'],function(){
                             deferred.resolve();
                         });
                         return deferred.promise;
@@ -96,7 +96,17 @@ define([], function () {
                     controllerAs: 'authenticate'
                 })
 
-                //.when('/login', route.resolve('authentication', 'authentication/', 'vm'))
+                .when('/logout',{
+                    templateUrl: 'components/authentication/views/logoutView.html',
+                    resolve: {coffeehouseController: function($q){
+                        var deferred = $q.defer();
+                        require(['components/authentication/directives/logout'],function(){
+                            deferred.resolve();
+                        });
+                        return deferred.promise;
+                    }}
+                })
+
                 .otherwise({ redirectTo: '/' });
 
             $locationProvider.html5Mode({requireBase:true, enabled: true});
@@ -104,8 +114,22 @@ define([], function () {
         }]);
 
 
+    app.run(['$rootScope', '$location',function($rootScope, $location){
+        $rootScope.$on('$routeChangeStart', function(event, next, current){
+            console.log($rootScope.loggedIn);
+           if($location.path() !== '/'){
+               $rootScope.justLoggedIn = false;
+           }
+            if($location.path() === '/logout' && $rootScope.loggedIn === null ||
+                $location.path() === '/logout' && $rootScope.loggedIn === undefined){
+                $location.path('/');
+            }
+        } )
+    }]);
+
+
     app.constant('API',{
-        'key': 'fe593bd24fc5741ced3ae48b504a5c36a09af3d9e67dd24cc6'
+        'key': 'Token token=8ceeca55a19ac9a93b7775fef241b95c824e639bf8f3ea22ec'
     });
 
     app.constant('storage',{

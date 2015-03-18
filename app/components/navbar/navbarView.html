@@ -1,34 +1,36 @@
 <nav class="navbar navbar-default navbar-fixed-top" data-ng-cotroller="coffeehouseListController as nav">
     <div class="container container-fluid">
         <!-- Brand and toggle get grouped for better mobile display -->
-        <div class="navbar-header page-scroll">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="/">Fikasugen</a>
-        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="navbar-header page-scroll">
 
-        <!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <ul class="nav navbar-nav">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="/">Fikasugen</a>
+                </div>
 
-            </ul>
-            <ul class="nav navbar-nav navbar-right">
-                <li data-ng-if="$root.loggedIn">
-                    <a data-ng-click="nav.logout()" href="">Logga ut</a>
-                </li>
-                <li>{{kalle}}</li>
-                <li data-ng-if="!$root.loggedIn">
-                    <a href="/login">Logga in</a>
-                </li>
-                <li>
-                    <a href="/newCoffeehouse">Lägg till ett nytt café</a>
-                </li>
-                <li>{{nav.token}}</li>
-            </ul>
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav">
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li data-ng-cotroller="logoutController as vm" data-ng-if="$root.loggedIn">
+                            <a href="/logout">Logga ut</a>
+                        </li>
+                        <li data-ng-if="!$root.loggedIn">
+                            <a href="/login">Logga in</a>
+                        </li>
+                        <li>
+                            <a href="/newCoffeehouse">Lägg till ett nytt café</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
         </div>
         <!-- /.navbar-collapse -->
     </div>

@@ -35,11 +35,9 @@ define([
                         coffeehouseService.getNearbyCoffeehouses(user.lat, user.long).success(function(data){
                             console.log(data.length);
                             sessionFactory.saveItem(storage.nearbyCoffeehouses, data);
-                            $location.path('/');
                         })
-
                     }
-
+                    $location.path('/');
 
                 })
             }
@@ -48,7 +46,7 @@ define([
         coffeehouseController.$inject = ['$rootScope', '$location', 'user', 'creator', 'sessionFactory', 'coffeehouseService', 'storage' ];
         return{
             restrict: 'E',
-            templateUrl: 'components/coffeehouses/Directives/newCoffeehouse.html',
+            templateUrl: '../templates/newCoffeehouse.html',
             controller: coffeehouseController,
             controllerAs: 'vm'
         }

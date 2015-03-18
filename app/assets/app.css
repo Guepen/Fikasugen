@@ -30,6 +30,11 @@ body {
     color: #000000;
 }
 
+.tag{
+    margin-right: 7px;
+    text-decoration: underline;
+}
+
 option, select{
     color: #ffffff;
     font-weight: 200;
