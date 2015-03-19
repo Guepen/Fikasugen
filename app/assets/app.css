@@ -7,7 +7,7 @@
 .navbar-brand{
     font-size: 2.0em;
 }
-a:hover, .nav li a:hover{
+a:hover, .link a:hover{
     color: #000000 !important;
 }
 .navbar-brand, .nav li a{
@@ -38,4 +38,12 @@ body {
 option, select{
     color: #ffffff;
     font-weight: 200;
+}
+
+.full-width{
+    width: 100%;
+}
+
+.username a:hover{
+    color: #ffffff !important;
 }

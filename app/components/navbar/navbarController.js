@@ -2,19 +2,28 @@
  * Created by Tobias on 2015-03-04.
  */
 'use strict';
-define(['app', 'components/session/sessionFactory'], function (app) {
+//define dependent files
+define(['shared/isLoggedIn'], function () {
 
-    app.register.controller('navbarController', ['$rootScope', 'storage', 'sessionFactory', function($rootScope, storage, sessionFactory){
-        var vm = this;
-        vm.token = sessionFactory.getItem(storage.token);
+    var navbar = angular.module('nav', []);
 
+    navbar.directive('navbar', function(){
+        var navController = function($scope, $rootScope, loggedInService){
+            console.log(loggedInService);
+            var vm = this;
+            vm.kalle = "kalle";
+            $scope.$on('loggedIn', function(e, data){
+               vm.loggedIn = data.token;
+                vm.username = data.username;
+            })
+        };
+        navController.$inject =  ['$scope', '$rootScope', 'loggedInService'];
 
-        if(vm.token){
-            $rootScope.loggedIn = true;
+        return{
+            restrict: 'E',
+            templateUrl: '/components/navbar/navbarView.html',
+            controller: navController,
+            controllerAs: 'vm'
         }
-
-        vm.logOut = function(){
-            alert("htrgfd");
-        }
-    }])
+    })
 });

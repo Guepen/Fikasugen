@@ -16,14 +16,25 @@ define(['app', 'components/session/sessionFactory', 'components/coffeehouses/ser
             console.log($routeParams.tagId);
             coffeehouseService.getCoffeehousesByTag($routeParams.tagId).success(function(data){
                 console.log(data);
+                //find the name of the tag
                 data[0].tags.forEach(function(tag){
                     console.log(tag);
                     if(tag.id == $routeParams.tagId){
                         vm.title = "Caféer med taggen "+ tag.name;
                     }
                 });
+                var images = ['1', '2', '3', '4', '5']; //hardcoded names for some images
 
                 vm.coffeehouses = data;
+
+                vm.coffeehouses.forEach(function(coffeehouse){
+                    var randomElement = Math.floor(Math.random() * images.length);
+                    coffeehouse.imageUrl = images[randomElement];
+                    //if there are more images than coffeehouses
+                    if(vm.coffeehouses.length <= images.length){
+                        images.splice(randomElement, 1);  // remove the image from the array
+                    }
+                });
             });
 
         };

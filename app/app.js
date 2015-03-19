@@ -5,7 +5,10 @@ define([], function () {
     var app = angular.module('fikasugen', [
         'ngRoute',
         'authentication',
-        'ngMap'
+        'ngMap',
+        'session',
+        'nav',
+        'loggedIn'
     ]);
 
     app.config(['$routeProvider', '$controllerProvider','$httpProvider',
@@ -115,13 +118,24 @@ define([], function () {
 
 
     app.run(['$rootScope', '$location',function($rootScope, $location){
+        var loggedIn = false;
+
+        $rootScope.$on('loggedIn', function(e, token){
+            if(token){
+                console.log("hwh");
+                loggedIn = true;
+                $rootScope.justLoggedIn = true;
+                $rootScope.loggedIn = true;
+            }
+        });
         $rootScope.$on('$routeChangeStart', function(event, next, current){
-            console.log($rootScope.loggedIn);
+            console.log(loggedIn);
            if($location.path() !== '/'){
                $rootScope.justLoggedIn = false;
            }
-            if($location.path() === '/logout' && $rootScope.loggedIn === null ||
-                $location.path() === '/logout' && $rootScope.loggedIn === undefined){
+            if($location.path() === '/logout' && loggedIn === false ||
+                $location.path() === '/logout' && loggedIn === null){
+
                 $location.path('/');
             }
         } )
@@ -129,7 +143,7 @@ define([], function () {
 
 
     app.constant('API',{
-        'key': 'Token token=8ceeca55a19ac9a93b7775fef241b95c824e639bf8f3ea22ec'
+        'key': 'Token token=4a6528ba9ee78d78520f8e76ada49d8ee5e22883a5a6798ce8'
     });
 
     app.constant('storage',{

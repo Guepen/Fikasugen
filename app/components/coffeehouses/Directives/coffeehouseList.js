@@ -7,52 +7,26 @@ define([
     'app',
     '../services/coffeehouseService',
     '../services/positionService',
-    'components/session/userValue',
     'components/session/sessionFactory'
 ], function (app) {
 
 
     app.register.directive('coffeehouseList', function () {
 
-        var coffeehouseListController = function($scope, $rootScope, $window, positionService, user, storage, sessionFactory, coffeehouseService) {
+        var coffeehouseListController = function($scope, $rootScope, $window, loggedInService, positionService,storage, sessionFactory, coffeehouseService) {
             var vm = this;
+            loggedInService.checkIfLoggedIn();
             vm.title = "Caféer i närheten";
             positionService().then(function(pos){
                     //set the users latitude and longitude
-                    user.lat = pos.coords.latitude;
-                    user.long = pos.coords.longitude;
-                },
-                //position-error
-                function(error){
-                    switch(error.code) {
-                        case error.PERMISSION_DENIED:
-                            vm.positionError = "Du måste tillåta applikation att hämta ut din plats för att" +
-                            "kunna visa närliggande caféer. Ingen data kommer att sparas";
-                            break;
-                        case error.POSITION_UNAVAILABLE:
-                            vm.positionError = "Ett fel inträffade när din position skulle hämtas";
-                            break;
-                        case error.TIMEOUT:
-                            vm.positionError = "Kunde inte fastställa din position. Förök igen!";
-                            break;
-                        case error.UNKNOWN_ERROR:
-                            vm.positionError = "Ett oväntat fel inträffade när din position skulle hämtas";
-                            break;
-                    }
-                }
-                //when position is located
-            ).then(function(){
-
-                    $rootScope.loggedIn = sessionFactory.getItem(storage.token);
-
-                    //get coffeehouses from sessionStorage
                     vm.coffeehouses = sessionFactory.getItem(storage.nearbyCoffeehouses);
                     console.log(vm.coffeehouses);
 
                     if (vm.coffeehouses === null) {
                         var images = ['1', '2', '3', '4', '5']; //hardcoded names for some images
+
                         console.log('no data');
-                        coffeehouseService.getNearbyCoffeehouses(user.lat, user.long)
+                        coffeehouseService.getNearbyCoffeehouses(pos.coords.latitude, pos.coords.longitude)
                             .success(function (data) {
                                 vm.coffeehouses = data;
                                 vm.coffeehouses.forEach(function(coffeehouse){
@@ -70,10 +44,30 @@ define([
 
                             });
                     }
-                });
+                },
+                //position-error
+                function(error){
+                    switch(error.code) {
+                        case error.PERMISSION_DENIED:
+                            vm.positionError = "Du måste tillåta applikation att hämta ut din plats för att " +
+                            "kunna visa närliggande caféer. Ingen data om din plats kommer att sparas";
+                            break;
+                        case error.POSITION_UNAVAILABLE:
+                            vm.positionError = "Ett fel inträffade när din position skulle hämtas";
+                            break;
+                        case error.TIMEOUT:
+                            vm.positionError = "Kunde inte fastställa din position. Förök igen!";
+                            break;
+                        case error.UNKNOWN_ERROR:
+                            vm.positionError = "Ett oväntat fel inträffade när din position skulle hämtas";
+                            break;
+                    }
+                }
+                //when position is located
+            )
         };
 
-        coffeehouseListController.$inject = ['$scope','$rootScope', '$window', 'positionService', 'user', 'storage','sessionFactory','coffeehouseService'];
+        coffeehouseListController.$inject = ['$scope','$rootScope', '$window', 'loggedInService', 'positionService', 'storage','sessionFactory','coffeehouseService'];
 
         return{
             restrict: 'E',

@@ -1,5 +1,5 @@
-<nav class="navbar navbar-default navbar-fixed-top" data-ng-cotroller="coffeehouseListController as nav">
-    <div class="container container-fluid">
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container ">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="row">
             <div class="col-md-12">
@@ -19,16 +19,20 @@
                     <ul class="nav navbar-nav">
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
-                        <li data-ng-cotroller="logoutController as vm" data-ng-if="$root.loggedIn">
-                            <a href="/logout">Logga ut</a>
-                        </li>
-                        <li data-ng-if="!$root.loggedIn">
-                            <a href="/login">Logga in</a>
-                        </li>
-                        <li>
+                        <li class="link">
                             <a href="/newCoffeehouse">Lägg till ett nytt café</a>
                         </li>
+                        <li class="link" data-ng-if="vm.loggedIn">
+                            <a href="/logout">Logga ut</a>
+                        </li>
+                        <li  class="link" data-ng-if="!vm.loggedIn">
+                            <a href="/login">Logga In</a>
+                        </li>
+                        <li data-ng-if="vm.loggedIn" class="username">
+                            <a ><strong>Inloggad som {{vm.username}}</strong></a>
+                        </li>
                     </ul>
+
                 </div>
             </div>
         </div>

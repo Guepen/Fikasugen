@@ -13,14 +13,14 @@ define([
 
 
     authentication.register.directive('logout', function() {
-        var logoutController = function($rootScope, sessionFactory, storage){
+        var logoutController = function($rootScope, loggedInService, sessionFactory, storage){
             console.log($rootScope);
             sessionFactory.deleteItem(storage.token);
             sessionFactory.deleteItem(storage.username);
-            $rootScope.loggedIn = null;
+            loggedInService.checkIfLoggedIn();
         };
 
-        logoutController.$inject = ['$rootScope', 'sessionFactory', 'storage'];
+        logoutController.$inject = ['$rootScope', 'loggedInService', 'sessionFactory', 'storage'];
 
         return{
             restrict: 'E',

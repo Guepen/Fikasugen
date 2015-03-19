@@ -4,30 +4,24 @@
 'use strict';
 define(['authenticationService', 'components/session/sessionFactory'], function () {
     var loginModule = angular.module('authentication')
-        .register.controller('authenticationController', ['$window', '$rootScope', '$location', 'storage',
-            'sessionFactory','authService', function ($window, $rootScope, $location, storage, sessionFactory, authService) {
+        .register.controller('authenticationController', ['$window', '$scope', '$location', 'loggedInService', 'storage',
+            'sessionFactory','authService', function ($window, $scope, $location, loggedInService, storage, sessionFactory, authService) {
                 console.log(sessionFactory);
                 var vm = this;
-                vm.hello = "Hello authenticate";
 
                 vm.login = function(){
-
+                    console.log(vm.username, vm.password);
                     authService.getLoginToken(vm.username, vm.password)
                         .success(function(response){
                             console.log(response);
                             sessionFactory.saveItem(storage.token, response.auth_token);
                             sessionFactory.saveItem(storage.username, vm.username);
-                            $rootScope.loggedIn = response.auth_token;
-                            $rootScope.justLoggedIn = true;
+                            loggedInService.checkIfLoggedIn();
                             $location.path('/');
                         })
                         .error(function(){
                             vm.loginError = true;
                         })
-
-
-
-
                 }
 
             }]);

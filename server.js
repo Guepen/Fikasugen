@@ -17,6 +17,7 @@ app.use(bodyParser.json({ type: 'application/vnd.api+json' })); // parse applica
 app.use(bodyParser.urlencoded({ extended: true })); // parse application/x-www-form-urlencoded
 
 app.use(express.static(__dirname + '/app'));
+app.use(express.static(__dirname + '/app/components/navbar'));
 app.use(express.static(__dirname + '/app/components/coffeehouses'));
 app.use(express.static(__dirname + '/app/components/session'));
 app.use(express.static(__dirname + '/app/components/authentication'));

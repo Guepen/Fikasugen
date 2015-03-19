@@ -4,8 +4,8 @@
 
 "use strict";
 define([], function() {
-    var loginModule = angular.module('fikasugen');
-    loginModule.register.factory('sessionFactory', ['$window', function ($window) {
+    var session = angular.module('session', []);
+    session.factory('sessionFactory', ['$window', function ($window) {
         return {
             saveItem: function(key, value){
                 $window.sessionStorage.setItem(key, JSON.stringify(value));

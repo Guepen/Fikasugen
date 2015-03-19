@@ -6,9 +6,15 @@ define(['app', 'components/coffeehouses/services/coffeehouseService', 'component
 
     //registrera direktivet på modulen fikasugen
     app.register.directive('coffeehouse', function(){
-        var coffeehouseController = function($routeParams, $location, $scope, sessionFactory, storage, coffeehouseService){
+        var coffeehouseController = function($routeParams, $location, $scope, $rootScope, loggedInService, sessionFactory, storage, coffeehouseService){
             var vm = this;
-            console.log($routeParams.id);
+            loggedInService.checkIfLoggedIn();
+
+            $rootScope.$on('loggedIn', function(e, data){
+                $scope.loggedIn = data.token;
+                console.log($scope.loggedIn);
+
+            });
             var coffeehouses = sessionFactory.getItem(storage.nearbyCoffeehouses);
             coffeehouses.forEach(function(coffeehouse){
                 if(coffeehouse.id == $routeParams.id){
@@ -51,10 +57,9 @@ define(['app', 'components/coffeehouses/services/coffeehouseService', 'component
                     vm.newTag = null;
                 })
             };
-
         };
 
-        coffeehouseController.$inject = ['$routeParams', '$location', '$scope', 'sessionFactory', 'storage', 'coffeehouseService'];
+        coffeehouseController.$inject = ['$routeParams', '$location', '$scope', '$rootScope', 'loggedInService', 'sessionFactory', 'storage', 'coffeehouseService'];
         return{
             restrict: 'E',
             templateUrl: '../templates/coffeehouse.html',
