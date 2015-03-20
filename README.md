@@ -21,4 +21,8 @@ För att kunna köra applikationen lokalt ser du till att följa nedanstående s
 
 - Öppna en webbläsare och ange URL:en http://localhost:8888/
 
+- För att logga in som testanvändare kan du använda två konton:
+    - Användarnamn: jimbo, Lösenord: password
+    - Användarnamn: alex, Lösenord: passwod
+
 - Good to go!
