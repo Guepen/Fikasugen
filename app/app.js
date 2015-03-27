@@ -143,8 +143,10 @@ define([], function () {
 
 
     app.constant('API',{
-        'key': 'Token token=4a6528ba9ee78d78520f8e76ada49d8ee5e22883a5a6798ce8'
+        'key': 'Token token=4a4906f45f647e5e78e3e3621a39d50344ac7e843e86adc88e',
+        'baseUrl': 'http://127.0.0.1:3000/api/v1/'
     });
+
 
     app.constant('storage',{
         'nearbyCoffeehouses': 'nearbyCoffeehouses',

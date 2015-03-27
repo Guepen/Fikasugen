@@ -9,11 +9,9 @@ define(['shared/isLoggedIn'], function () {
 
     navbar.directive('navbar', function(){
         var navController = function($scope, $rootScope, loggedInService){
-            console.log(loggedInService);
             var vm = this;
-            vm.kalle = "kalle";
             $scope.$on('loggedIn', function(e, data){
-               vm.loggedIn = data.token;
+                vm.loggedIn = data.token;
                 vm.username = data.username;
             })
         };

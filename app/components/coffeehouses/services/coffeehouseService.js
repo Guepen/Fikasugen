@@ -9,8 +9,7 @@ define(['app'], function (app) {
                 return $http.get('http://127.0.0.1:3000/api/v1/coffeehouses');
             },
             getNearbyCoffeehouses: function(lat, long){
-                console.log(API.key);
-                return $http.get('http://128.199.42.116:3000/api/v1/coffeehouses?latitude=' + lat + '&longitude=' + long, {
+                return $http.get(API.baseUrl + 'coffeehouses?latitude=' + lat + '&longitude=' + long, {
                     headers: {
                         'Authorization': API.key
                     }
@@ -18,11 +17,11 @@ define(['app'], function (app) {
             },
 
             getCoffeehousesBySearchWord: function(query){
-                return $http.get('http://128.199.42.116:3000/api/v1/coffeehouses?search='+query);
+                return $http.get(API.baseUrl + 'coffeehouses?search='+query);
             },
 
             getCoffeehousesByTag: function(tagId){
-                return $http.get('http://128.199.42.116:3000/api/v1/tags/' + tagId + '/coffeehouses', {
+                return $http.get(API.baseUrl + 'tags/' + tagId + '/coffeehouses', {
                     headers: {
                         'Authorization': API.key
                     }
@@ -30,7 +29,7 @@ define(['app'], function (app) {
         },
 
             addCoffeehouse: function(coffeehouse){
-            return $http.post('http://128.199.42.116:3000/api/v1/coffeehouses', coffeehouse, {
+            return $http.post(API.baseUrl + 'coffeehouses', coffeehouse, {
                 headers: {
                     'Authorization': API.key,
                     'authtoken': sessionFactory.getItem(storage.token)
@@ -39,7 +38,7 @@ define(['app'], function (app) {
         },
 
         addTagsToCoffeehouse: function(coffeehouseId, tag){
-            return $http.post('http://128.199.42.116:3000/api/v1/coffeehouses/'+ coffeehouseId + '/tags', tag, {
+            return $http.post(API.baseUrl + 'coffeehouses/'+ coffeehouseId + '/tags', tag, {
                 headers: {
                     'Authorization': API.key,
                     'authtoken': sessionFactory.getItem(storage.token)
@@ -48,7 +47,7 @@ define(['app'], function (app) {
         },
 
         updateCoffeehouse: function(coffeehouse){
-            return $http.put('http://128.199.42.116:3000/api/v1/coffeehouses/' +coffeehouse.id, coffeehouse, {
+            return $http.put(API.baseUrl +'coffeehouses/' +coffeehouse.id, coffeehouse, {
                 headers: {
                     'Authorization': API.key,
                     'authtoken': sessionFactory.getItem(storage.token)
@@ -57,7 +56,7 @@ define(['app'], function (app) {
         },
 
         removeCoffeehouse: function(coffeehouseId){
-            return $http.delete('http://128.199.42.116:3000/api/v1/coffeehouses/' + coffeehouseId, {
+            return $http.delete(API.baseUrl +'coffeehouses/' + coffeehouseId, {
                 headers: {
                     Authorization: API.key,
                     'authtoken': sessionFactory.getItem(storage.token)

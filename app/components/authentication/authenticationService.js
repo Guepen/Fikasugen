@@ -7,7 +7,7 @@ define([], function() {
     loginModule.register.factory('authService', ['$http', 'API', function ($http, API) {
         return {
             getLoginToken: function (username, password) {
-                return $http.get('http://128.199.42.116:3000/api/v1/authenticate', {
+                return $http.get(API.baseUrl +'authenticate', {
                             headers: {
                                 'Authorization': API.key,
                                 'username': username,
