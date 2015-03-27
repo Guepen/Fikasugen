@@ -20,7 +20,7 @@
                                 <a class="tag" href="/tags/{{tag.id}}/coffeehouses" data-ng-click="vm.getCoffeehousesByTag(tag)" data-ng-repeat="tag in vm.coffeehouse.tags">{{tag.name}}</a>
                             </div>
                         </div>
-                        <div data-ng-if="$root.loggedIn" class="row">
+                        <div data-ng-if="vm.loggedIn" class="row">
                             <form data-ng-submit="vm.addTags()" class="navbar-form">
                                 <div class="input-group">
                                     <input type="text" class="form-control" data-ng-model="vm.newTag" placeholder="Lägg till en tagg" name="srch-term" id="srch-term">

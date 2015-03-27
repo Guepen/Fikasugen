@@ -17,7 +17,6 @@ define([
     app.register.directive('updateCoffeehouse', function(){
         var coffeehouseController = function($rootScope, $routeParams, $location, sessionFactory, coffeehouseService, storage){
             var vm = this;
-            console.log(user);
             $rootScope.loggedIn = sessionFactory.getItem(storage.token);
             var coffeehouseList = sessionFactory.getItem(storage.nearbyCoffeehouses);
 

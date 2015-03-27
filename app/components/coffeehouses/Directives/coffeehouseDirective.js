@@ -8,11 +8,11 @@ define(['app', 'components/coffeehouses/services/coffeehouseService', 'component
     app.register.directive('coffeehouse', function(){
         var coffeehouseController = function($routeParams, $location, $scope, $rootScope, loggedInService, sessionFactory, storage, coffeehouseService){
             var vm = this;
-            loggedInService.checkIfLoggedIn();
-
-            $rootScope.$on('loggedIn', function(e, data){
-                $scope.loggedIn = data.token;
-                console.log($scope.loggedIn);
+            vm.loggedIn = sessionFactory.getItem(storage.token);
+            $scope.$on('loggedIn', function(e, data){
+                vm.loggedIn = true;
+                console.log(vm.loggedIn);
+                $scope.$apply();
 
             });
             var coffeehouses = sessionFactory.getItem(storage.nearbyCoffeehouses);
